@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { db } from "../server/db/index"
+import Image from 'next/image'
 import { SignedOut, SignedIn } from "@clerk/nextjs";
 import { getMyImages } from "../server/queries"
 
@@ -10,19 +11,25 @@ async function Images() {
   const images = await getMyImages();
 
   return (
-      <div className="flex flex-wrap gap-4">
-        {
-          images.map((image, index) => (
-            <div key={image.id} className="w-48 flex flex-col">
-              <img src={image.url}/>
-              <div>
-                {image.name}
-              </div>
-            </div>
-          ))
-        }
-      </div>
-  )
+    <div className="flex flex-wrap gap-4 pl-4">
+      {images.map((image, index) => (
+        <div key={image.id} className="w-48 flex flex-col items-center">
+          <div className="relative w-full h-48">
+            <Image 
+              src={image.url} 
+              layout="fill" 
+              objectFit="cover" 
+              alt={image.name} 
+              className="rounded-lg"
+            />
+          </div>
+          <div className="mt-2 text-center text-sm">
+            {image.name}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default async function HomePage() {
