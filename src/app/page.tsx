@@ -11,10 +11,11 @@ async function Images() {
   const images = await getMyImages();
 
   return (
-    <div className="flex flex-wrap gap-4 pl-4">
+    <div className="flex flex-wrap gap-5 ml-5 justify-start">
       {images.map((image, index) => (
         <div key={image.id} className="w-48 flex flex-col items-center">
           <div className="relative w-full h-48">
+            <Link href={`/img/${image.id}`}>
             <Image 
               src={image.url} 
               layout="fill" 
@@ -22,6 +23,7 @@ async function Images() {
               alt={image.name} 
               className="rounded-lg"
             />
+            </Link>
           </div>
           <div className="mt-2 text-center text-sm">
             {image.name}
