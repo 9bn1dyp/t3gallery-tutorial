@@ -55,6 +55,11 @@ export function SimpleUploadButton() {
                 id: "upload-begin"
             })
         },
+        onUploadError(error) {
+          posthog.capture("upload error", { error })
+          toast.dismiss("upload-begin")
+          toast.error("Upload failed")
+        },
         onClientUploadComplete(res) {
             toast.dismiss("upload-begin")
             toast("Upload complete!")
